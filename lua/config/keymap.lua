@@ -130,4 +130,21 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 -- stylua: ignore start
 
--- toggle options
+--terminal
+map("n", "<c-/>",      function() Snacks.terminal() end, { desc = "Terminal (Root Dir)" })
+map("n", "<c-_>",      function() Snacks.terminal() end, { desc = "which_key_ignore" })
+
+-- Terminal Mappings
+map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
+
+-- lazygit
+map("n", "<leader>gg", function() Snacks.lazygit( ) end, { desc = "Lazygit (Root Dir)" })
+map("n", "<leader>gf", function() Snacks.picker.git_log_file() end, { desc = "Git Current File History" })
+map("n", "<leader>gl", function() Snacks.picker.git_log() end, { desc = "Git Log (cwd)" })
+
+map("n", "<leader>gb", function() Snacks.picker.git_log_line() end, { desc = "Git Blame Line" })
+map({ "n", "x" }, "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git Browse (open)" })
+map({"n", "x" }, "<leader>gY", function()
+  Snacks.gitbrowse({ open = function(url) vim.fn.setreg("+", url) end, notify = false })
+end, { desc = "Git Browse (copy)" })
