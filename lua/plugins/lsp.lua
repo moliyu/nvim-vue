@@ -7,6 +7,23 @@ return {
     config = function()
       local mason_util = require("utils.mason")
       local base_on_attach = vim.lsp.config.eslint.on_attach
+
+      vim.diagnostic.config({
+        virtual_text = true,      -- 在行尾显示诊断信息 (true, false, 或表 { prefix = '●', spacing = 4, ...})
+        signs = true,             -- 在符号列 (sign column) 显示图标
+        underline = true,         -- 为诊断区域添加下划线
+        update_in_insert = false, -- 是否在插入模式下更新诊断 (设为 false 性能更好)
+        severity_sort = true,     -- 按严重性排序诊断
+        float = {                 -- 浮动窗口的配置
+          focusable = false,
+          style = "minimal",
+          border = "rounded",
+          source = "always", -- "always", "if_ অনেক", "if_many" (原文如此，应为 if_many)
+          header = "",
+          prefix = "",
+        },
+      })
+
       vim.lsp.config("eslint", {
         on_attach = function(client, bufnr)
           if not base_on_attach then return end
@@ -67,26 +84,17 @@ return {
           },
         },
         before_init = function(params, config)
-          local result = vim.system(
-                { "npm", "query", "#vue" },
-                { cwd = params.workspaceFolders[1].name, text = true }
-              )
-              :wait()
-          if result.stdout ~= "[]" then
-            local vuePluginConfig = {
-              name = "@vue/typescript-plugin",
-              location = mason_util.get_package_path("vue-language-server")
-                  .. "/node_modules/@vue/language-server",
-              languages = { "vue" },
-              configNamespace = "typescript",
-              enableForWorkspaceTypeScriptVersions = true,
-            }
-            table.insert(config.settings.vtsls.tsserver.globalPlugins, vuePluginConfig)
-          end
+          local vuePluginConfig = {
+            name = "@vue/typescript-plugin",
+            location = mason_util.get_package_path("vue-language-server")
+                .. "/node_modules/@vue/language-server",
+            languages = { "vue" },
+            configNamespace = "typescript",
+            enableForWorkspaceTypeScriptVersions = true,
+          }
+          table.insert(config.settings.vtsls.tsserver.globalPlugins, vuePluginConfig)
         end,
       })
-      -- you must remove "ts_ls" config
-      -- vim.lsp.config['ts_ls'] = {}
     end,
   },
   {
@@ -114,6 +122,7 @@ return {
         sync_install = false,
         highlight = { enable = true },
         indent = { enable = true },
+        folding = { enable = true }
       })
     end,
   },
@@ -160,5 +169,16 @@ return {
     config = true
     -- use opts = {} for passing setup options
     -- this is equivalent to setup({}) function
+  },
+  {
+    'windwp/nvim-ts-autotag',
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      opts = {
+        enable_close = true,  -- Auto close tags
+        enable_rename = true, -- Auto rename pairs of tags
+        enable_close_on_slash = true
+      }
+    }
   }
 }

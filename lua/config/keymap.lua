@@ -1,5 +1,14 @@
 local map = vim.keymap.set
 
+-- Clear search and stop snippet on escape
+map({ "i", "n", "s" }, "<esc>", function()
+  vim.cmd("noh")
+  if vim.snippet then
+    vim.snippet.stop()
+  end
+  return "<esc>"
+end, { expr = true, desc = "Escape and Clear hlsearch" })
+
 map("i", "jj", "<Esc>", { silent = true })
 map("i", "jk", "<Esc>:w<CR>", { silent = true })
 
@@ -15,11 +24,16 @@ map("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
 map("n", "<C-k>", "<C-w>k", { desc = "Go to Upper Window", remap = true })
 map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
 
+-- windows
+map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
+map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
+map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
+
 -- Resize window using <ctrl> arrow keys
-map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
-map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
-map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
-map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+map("n", "<A-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+map("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+map("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
 -- Move Lines
 map("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
@@ -145,9 +159,12 @@ map("n", "<leader>gl", function() Snacks.picker.git_log() end, { desc = "Git Log
 
 map("n", "<leader>gb", function() Snacks.picker.git_log_line() end, { desc = "Git Blame Line" })
 map({ "n", "x" }, "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git Browse (open)" })
-map({ "n", "x" }, "<leader>gY", function()
-  Snacks.gitbrowse({ open = function(url) vim.fn.setreg("+", url) end, notify = false })
-end, { desc = "Git Browse (copy)" })
+map({ "n", "x" }, "<leader>gY",
+  function() Snacks.gitbrowse({ open = function(url) vim.fn.setreg("+", url) end, notify = false }) end,
+  { desc = "Git Browse (copy)" })
+map({ "n", "v", "x" }, "<leader>aa", function() require("codecompanion").toggle() end)
+
+map({ "n", "v", "x" }, "<leader>cp", ":CodeCompanionActions<CR>")
 
 local function custom()
   local keyset = vim.keymap.set
