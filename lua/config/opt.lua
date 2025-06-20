@@ -41,8 +41,9 @@ opt.fillchars = {
   eob = " ",
 }
 opt.foldlevel = 99
-opt.foldmethod = "indent"
-opt.foldtext = "v:lua.require'utils.fold'.foldtext()"
+opt.foldmethod = "expr"
+opt.foldtext = ""
+opt.foldexpr = "v:lua.require'utils.fold'.foldexpr()"
 opt.formatoptions = "jcroqlnt" -- tcqj
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
