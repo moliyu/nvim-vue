@@ -14,14 +14,14 @@ return {
         underline = true,         -- 为诊断区域添加下划线
         update_in_insert = false, -- 是否在插入模式下更新诊断 (设为 false 性能更好)
         severity_sort = true,     -- 按严重性排序诊断
-        float = {                 -- 浮动窗口的配置
-          focusable = false,
-          style = "minimal",
-          border = "rounded",
-          source = "always", -- "always", "if_ অনেক", "if_many" (原文如此，应为 if_many)
-          header = "",
-          prefix = "",
-        },
+        -- float = {                 -- 浮动窗口的配置
+        --   focusable = false,
+        --   style = "minimal",
+        --   border = "rounded",
+        --   source = "always", -- "always", "if_ অনেক", "if_many" (原文如此，应为 if_many)
+        --   header = "",
+        --   prefix = "",
+        -- },
       })
 
       vim.lsp.config("eslint", {
@@ -118,7 +118,7 @@ return {
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-        ensure_installed = { "lua", "vim", "javascript", "html", "vue", "css", "scss" },
+        ensure_installed = { "lua", "vim", "javascript", "typescript", "html", "vue", "css", "scss" },
         sync_install = false,
         highlight = { enable = true },
         indent = { enable = true },

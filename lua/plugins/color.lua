@@ -6,7 +6,9 @@ return {
     opts = {
       transparent_bg = true,
     },
-    config = function()
+    config = function(_, opts)
+      opts.transparent_bg = true
+      require("dracula").setup(opts)
       require("utils.toggle").change_color("dracula")
     end
   },
