@@ -148,6 +148,9 @@ map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 map("n", "<c-/>", function() Snacks.terminal() end, { desc = "Terminal (Root Dir)" })
 map("n", "<c-_>", function() Snacks.terminal() end, { desc = "which_key_ignore" })
 
+Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+
+
 -- Terminal Mappings
 map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
