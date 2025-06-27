@@ -4,10 +4,10 @@ return {
     opts = {
       strategies = {
         chat = {
-          adapter = "deepseek",
+          adapter = "gemini",
         },
         inline = {
-          adapter = "deepseek",
+          adapter = "gemini",
         },
       },
       opts = {
@@ -22,6 +22,18 @@ return {
             schema = {
               model = {
                 default = "deepseek-chat",
+              },
+            },
+          })
+        end,
+        gemini = function()
+          return require("codecompanion.adapters").extend("gemini", {
+            env = {
+              api_key = os.getenv("GEMINI_API_KEY"),
+            },
+            schema = {
+              model = {
+                default = "gemini-2.5-flash-preview-05-20",
               },
             },
           })
@@ -46,6 +58,16 @@ return {
             },
           },
         },
+      },
+      {
+        "echasnovski/mini.diff",
+        config = function()
+          local diff = require("mini.diff")
+          diff.setup({
+            -- Disabled by default
+            source = diff.gen_source.none(),
+          })
+        end,
       },
     },
   },

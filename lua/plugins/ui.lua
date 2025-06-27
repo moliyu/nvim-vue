@@ -12,6 +12,7 @@ return {
             section_separators = { left = '', right = '' },
             disabled_filetypes = {
               "snacks_layout_box",
+              "neo-tree",
               statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" },
               winbar = {},
             },
@@ -74,7 +75,6 @@ return {
       options = {
         offsets = {
           {
-
             filetype = "snacks_picker_list",
             text = "File Explorer",
             highlight = "Directory",
@@ -84,7 +84,10 @@ return {
             filetype = "snacks_layout_box",
           },
           {
-            filetype = "neo-tree"
+            filetype = "neo-tree",
+            text = "File Explorer",
+            highlight = "Directory",
+            separator = true,
           }
         },
       },

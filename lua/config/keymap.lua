@@ -50,12 +50,8 @@ map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-map("n", "<leader>bd", function()
-  Snacks.bufdelete()
-end, { desc = "Delete Buffer" })
-map("n", "<leader>bo", function()
-  Snacks.bufdelete.other()
-end, { desc = "Delete Other Buffers" })
+map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete Buffer" })
+map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers" })
 map("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 
 -- Clear search, diff update and redraw
@@ -147,6 +143,7 @@ map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 --terminal
 map("n", "<c-/>", function() Snacks.terminal() end, { desc = "Terminal (Root Dir)" })
 map("n", "<c-_>", function() Snacks.terminal() end, { desc = "which_key_ignore" })
+map("n", "<leader>t", function() Snacks.terminal(nil, { win = { position = "right" } }) end, { desc = "float terminal" })
 
 Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
 
