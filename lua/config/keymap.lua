@@ -53,15 +53,7 @@ map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete Buffer" })
 map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers" })
 map("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
-
--- Clear search, diff update and redraw
--- taken from runtime/lua/_editor.lua
-map(
-  "n",
-  "<leader>ur",
-  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-  { desc = "Redraw / Clear hlsearch / Diff Update" }
-)
+map("n", "<leader>ur", "<cmd>e<cr>", { desc = "Refresh Buffer" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
@@ -143,7 +135,7 @@ map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 --terminal
 map("n", "<c-/>", function() Snacks.terminal() end, { desc = "Terminal (Root Dir)" })
 map("n", "<c-_>", function() Snacks.terminal() end, { desc = "which_key_ignore" })
-map("n", "<leader>t", function() Snacks.terminal(nil, { win = { position = "right" } }) end, { desc = "float terminal" })
+map("n", "<leader>t", function() Snacks.terminal('zsh', { win = { position = "right" } }) end, { desc = "float terminal" })
 
 Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
 
