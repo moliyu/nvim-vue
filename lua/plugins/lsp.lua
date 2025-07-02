@@ -48,12 +48,32 @@ return {
         root_markers = { "unocss.config.js", "unocss.config.ts", "uno.config.js", "uno.config.ts" }
       })
       vim.lsp.enable("unocss")
-      -- vim.lsp.config("vue_ls", {
-      -- 	-- add filetypes for typescript, javascript and vue
-      -- 	cmd = { "vtsls", "--stdio" },
-      -- 	filetypes = { "vue" },
-      -- 	root_markers = { "tsconfig.json", "package.json", "jsconfig.json", ".git" },
-      -- })
+      vim.lsp.config("vue_ls", {
+        on_init = function(client)
+          client.handlers['tsserver/request'] = function(_, result, context)
+            local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = 'vtsls' })
+            if #clients == 0 then
+              vim.notify('Could not found `vtsls` lsp client, vue_lsp would not work without it.', vim.log.levels.ERROR)
+              return
+            end
+            local ts_client = clients[1]
+
+            local param = unpack(result)
+            local id, command, payload = unpack(param)
+            ts_client:exec_cmd({
+              command = 'typescript.tsserverRequest',
+              arguments = {
+                command,
+                payload,
+              },
+            }, { bufnr = context.bufnr }, function(_, r)
+              local response_data = { { id, r.body } }
+              ---@diagnostic disable-next-line: param-type-mismatch
+              client:notify('tsserver/response', response_data)
+            end)
+          end
+        end,
+      })
 
       vim.lsp.config("vtsls", {
         filetypes = {
@@ -90,7 +110,6 @@ return {
                 .. "/node_modules/@vue/language-server",
             languages = { "vue" },
             configNamespace = "typescript",
-            enableForWorkspaceTypeScriptVersions = true,
           }
           table.insert(config.settings.vtsls.tsserver.globalPlugins, vuePluginConfig)
         end,

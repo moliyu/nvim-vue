@@ -84,3 +84,4 @@ opt.virtualedit = "block"          -- Allow cursor to move where there is no tex
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5                -- Minimum window width
 opt.wrap = false                   -- Disable line wrap
+opt.conceallevel = 0
