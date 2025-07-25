@@ -8,21 +8,14 @@ return {
       local mason_util = require("utils.mason")
       local base_on_attach = vim.lsp.config.eslint.on_attach
 
-      vim.diagnostic.config({
-        virtual_text = true,      -- 在行尾显示诊断信息 (true, false, 或表 { prefix = '●', spacing = 4, ...})
-        signs = true,             -- 在符号列 (sign column) 显示图标
-        underline = true,         -- 为诊断区域添加下划线
-        update_in_insert = false, -- 是否在插入模式下更新诊断 (设为 false 性能更好)
-        severity_sort = true,     -- 按严重性排序诊断
-        -- float = {                 -- 浮动窗口的配置
-        --   focusable = false,
-        --   style = "minimal",
-        --   border = "rounded",
-        --   source = "always", -- "always", "if_ অনেক", "if_many" (原文如此，应为 if_many)
-        --   header = "",
-        --   prefix = "",
-        -- },
-      })
+      local x = vim.diagnostic.severity
+
+      vim.diagnostic.config {
+        virtual_text = { prefix = "" },
+        signs = { text = { [x.ERROR] = "󰅙", [x.WARN] = "", [x.INFO] = "󰋼", [x.HINT] = "󰌵" } },
+        underline = true,
+        float = { border = "single" },
+      }
 
       vim.lsp.config("eslint", {
         on_attach = function(client, bufnr)

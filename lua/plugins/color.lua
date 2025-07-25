@@ -6,11 +6,11 @@ return {
     opts = {
       transparent_bg = true,
     },
-    config = function(_, opts)
-      opts.transparent_bg = true
-      require("dracula").setup(opts)
-      require("utils.toggle").change_color("dracula")
-    end
+    -- config = function(_, opts)
+    --   opts.transparent_bg = true
+    --   require("dracula").setup(opts)
+    --   require("utils.toggle").change_color("dracula")
+    -- end
   },
   {
     "catppuccin/nvim",
@@ -20,8 +20,8 @@ return {
     opts = {
       transparent_background = true,
     },
-    -- config = function()
-    --   vim.cmd([[colorscheme catppuccin]])
-    -- end
+    config = function()
+      require("utils.toggle").change_color("catppuccin-mocha")
+    end
   },
 }

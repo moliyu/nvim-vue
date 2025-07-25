@@ -10,7 +10,11 @@ return {
     bigfile = { enabled = true },
     dashboard = { enabled = true },
     explorer = { enabled = false },
-    indent = { enabled = true },
+    indent = {
+      indent = {
+        enabled = false,
+      },
+    },
     input = { enabled = true },
     picker = { enabled = true },
     notifier = { enabled = true },
