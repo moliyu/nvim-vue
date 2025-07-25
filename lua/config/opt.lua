@@ -1,6 +1,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+vim.o.autoread = true
+
 -- LazyVim auto format
 vim.g.autoformat = true
 

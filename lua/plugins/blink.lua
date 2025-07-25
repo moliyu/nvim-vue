@@ -32,7 +32,7 @@ return {
       ["<C-e>"] = { "hide", "fallback" },
       ["<CR>"] = { "accept", "fallback" },
 
-      ['<Tab>'] = {
+      ["<Tab>"] = {
         function(cmp)
           if cmp.snippet_active() then
             return cmp.accept()
@@ -40,10 +40,10 @@ return {
             return cmp.select_and_accept()
           end
         end,
-        'snippet_forward',
-        'fallback'
+        "snippet_forward",
+        "fallback",
       },
-      ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+      ["<S-Tab>"] = { "snippet_backward", "fallback" },
 
       ["<Up>"] = { "select_prev", "fallback" },
       ["<Down>"] = { "select_next", "fallback" },
@@ -80,21 +80,21 @@ return {
         auto_show_delay_ms = 200,
       },
       ghost_text = {
-        enabled = true
-      }
+        enabled = true,
+      },
     },
 
-    signature = {
-      enabled = true,
-      window = {
-        border = "single"
-      }
-    },
+    -- signature = {
+    -- 	enabled = true,
+    -- 	window = {
+    -- 		border = "single",
+    -- 	},
+    -- },
 
     cmdline = {
       keymap = {
         -- recommended, as the default keymap will only show and select the next item
-        ['<Tab>'] = { 'show', 'accept' },
+        ["<Tab>"] = { "show", "accept" },
       },
       completion = {
         menu = {
@@ -106,7 +106,7 @@ return {
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { "lsp", "path", "buffer", "snippets", "codecompanion" },
+      default = { "lsp", "path", "buffer", "snippets" },
     },
 
     -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
