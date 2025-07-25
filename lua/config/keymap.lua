@@ -135,7 +135,8 @@ map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 --terminal
 map("n", "<c-/>", function() Snacks.terminal() end, { desc = "Terminal (Root Dir)" })
 map("n", "<c-_>", function() Snacks.terminal() end, { desc = "which_key_ignore" })
-map("n", "<leader>t", function() Snacks.terminal('zsh', { win = { position = "right" } }) end, { desc = "float terminal" })
+map("n", "<leader>t", function() Snacks.terminal('zsh', { win = { position = "right" } }) end,
+  { desc = "float terminal" })
 
 Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
 
@@ -154,9 +155,6 @@ map({ "n", "x" }, "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git
 map({ "n", "x" }, "<leader>gY",
   function() Snacks.gitbrowse({ open = function(url) vim.fn.setreg("+", url) end, notify = false }) end,
   { desc = "Git Browse (copy)" })
-map({ "n", "v", "x" }, "<leader>aa", function() require("codecompanion").toggle() end)
-
-map({ "n", "v", "x" }, "<leader>cp", ":CodeCompanionActions<CR>")
 
 local function custom()
   local keyset = vim.keymap.set

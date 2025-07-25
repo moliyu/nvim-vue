@@ -60,7 +60,7 @@ return {
       },
       keys = {
         -- suggested keymap
-        { "<leader>p", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
+        { "<leader>p",  "<cmd>PasteImage<cr>",      desc = "Paste image from system clipboard" },
         {
           "<leader>aa",
           function()
@@ -68,6 +68,7 @@ return {
           end,
           desc = "codecompanion toggle",
         },
+        { "<leader>cp", ":CodeCompanionActions<CR>" }
       },
     },
     {
