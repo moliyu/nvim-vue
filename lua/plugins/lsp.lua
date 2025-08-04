@@ -17,6 +17,8 @@ return {
         float = { border = "single" },
       }
 
+      vim.lsp.set_log_level("off")
+
       vim.lsp.config("eslint", {
         on_attach = function(client, bufnr)
           if not base_on_attach then return end
