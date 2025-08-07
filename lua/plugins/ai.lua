@@ -7,9 +7,17 @@ return {
         chat = {
           adapter = "gemini",
           tools = {
+            groups = {
+              ['agent'] = {
+                description = "agent tool",
+                tools = {
+                  "neovim__read_multiple_files", "neovim__write_file", "neovim__edit_file",
+                }
+              }
+            },
             opts = {
               default_tools = {
-                "full_stack_dev"
+                "agent"
               }
             }
           }
@@ -31,6 +39,21 @@ return {
             }
           }
         },
+        mcphub = {
+          callback = "mcphub.extensions.codecompanion",
+          opts = {
+            -- MCP Tools
+            make_tools = true,                    -- Make individual tools (@server__tool) and server groups (@server) from MCP servers
+            show_server_tools_in_chat = true,     -- Show individual tools in chat completion (when make_tools=true)
+            add_mcp_prefix_to_tool_names = false, -- Add mcp__ prefix (e.g `@mcp__github`, `@mcp__neovim__list_issues`)
+            show_result_in_chat = true,           -- Show tool results directly in chat buffer
+            format_tool = nil,                    -- function(tool_name:string, tool: CodeCompanion.Agent.Tool) : string Function to format tool names to show in the chat buffer
+            -- MCP Resources
+            make_vars = true,                     -- Convert MCP resources to #variables for prompts
+            -- MCP Prompts
+            make_slash_commands = true,
+          }
+        }
       },
       adapters = {
         deepseek = function()
@@ -102,6 +125,22 @@ return {
           })
         end,
       },
+      {
+        "ravitemer/mcphub.nvim",
+        dependencies = {
+          "nvim-lua/plenary.nvim",
+        },
+        build = "npm install -g mcp-hub@latest", -- Installs `mcp-hub` node binary globally
+        config = function()
+          require("mcphub").setup({
+            global_env = function(context)
+              return {
+                DEFAULT_MINIMUM_TOKENS = 6000
+              }
+            end
+          })
+        end
+      }
     },
   },
   {
