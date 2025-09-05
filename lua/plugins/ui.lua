@@ -47,7 +47,8 @@ return {
               "lsp_status",
               'encoding',
               'fileformat',
-              'filetype' },
+              'filetype'
+            },
             lualine_y = { 'progress' },
             lualine_z = { 'location' }
           },

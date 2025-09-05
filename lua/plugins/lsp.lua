@@ -81,7 +81,7 @@ return {
   {
     "mason-org/mason-lspconfig.nvim",
     opts = {
-      ensure_installed = { "lua_ls", "vue_ls", "vtsls", "eslint" },
+      ensure_installed = { "lua_ls", "vue_ls", "vtsls", "eslint", "jsonls" },
     },
     dependencies = {
       { "mason-org/mason.nvim", opts = {} },
